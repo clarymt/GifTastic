@@ -1,6 +1,6 @@
 $(document).ready(function() {
 
-var horrors = ["evil dead", "evil dead 2", "army of darkness", "ghost", "demon", "necronomicon", "haunting", "the exorcist", "hellraiser", "satan", "your pretty face is going to hell", "are you afraid of the dark", "beetlejuice", "saw", "the toxic avenger", "killer clowns from outer space"]
+var horrors = ["evil dead", "evil dead 2", "army of darkness", "ghost", "demon", "necronomicon", "haunting", "the exorcist", "hellraiser", "satan", "your pretty face is going to hell", "are you afraid of the dark", "beetlejuice", "saw", "the toxic avenger", "killer clowns from outer space", "alien", "halloween"]
 
 function renderButtons() {
 	$("#horror-buttons").empty();
@@ -52,6 +52,22 @@ function renderButtons() {
               // Prependng the animalDiv to the HTML page in the "#gifs-appear-here" div
               $("#horrors").prepend(horrorDiv);
             }
+
+             // This function handles events where one button is clicked
+      $("#add-horror").on("click", function(event) {
+        // Preventing the buttons default behavior when clicked (which is submitting a form)
+        event.preventDefault();
+        // This line grabs the input from the textbox
+        var horror = $("#horror-input").val().trim();
+
+        // Adding the movie from the textbox to our array
+        horrors.push(horror);
+
+        // Calling renderButtons which handles the processing of our movie array
+        renderButtons();
+
+      });
+
           });
       });
 });
