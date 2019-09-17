@@ -1,16 +1,22 @@
-$(document).ready(function() {
 
-var horrors = ["evil dead", "evil dead 2", "army of darkness", "ghost", "demon", "necronomicon", "haunting", "the exorcist", "hellraiser", "satan", "your pretty face is going to hell", "are you afraid of the dark", "beetlejuice", "saw", "the toxic avenger", "killer clowns from outer space", "alien", "halloween"]
+var horrors = ["evil dead", "evil dead 2", "army of darkness", 
+"ghost", "demon", "necronomicon", "haunting", "the exorcist", 
+"hellraiser", "satan", "your pretty face is going to hell", 
+"are you afraid of the dark", "beetlejuice", "saw", 
+"the toxic avenger", "killer clowns from outer space", 
+"alien", "halloween"]
 
 function renderButtons() {
 	$("#horror-buttons").empty();
 	for (i = 0; i < horrors.length; i++) {
-		$("#horror-buttons").append("<button class='btn btn-danger' data-horror='" + horrors[i] + "'>" + horrors[i] + "</button>");
+        $("#horror-buttons").append("<button class='btn btn-danger' data-horror='" + horrors[i] + "'>" + horrors[i] + "</button>");
 		}
     }
+   
+
     renderButtons();
 
-    $("button").on("click", function() {
+    $("button").on("click", function displayInfo() {
         // Grabbing and storing the data-animal property value from the button
         var horrors = $(this).attr("data-horror");
   
@@ -23,6 +29,7 @@ function renderButtons() {
           url: queryURL,
           method: "GET"
         })
+        
           // After data comes back from the request
           .then(function(response) {
             console.log(queryURL);
@@ -43,31 +50,58 @@ function renderButtons() {
               // Creating and storing an image tag
               var horrorImage = $("<img>");
               // Setting the src attribute of the image to a property pulled off the result item
-              horrorImage.attr("src", results[i].images.fixed_height.url);
-  
+             horrorImage.attr("src", results[i].images.fixed_height.url);
+            /*  horrorImage.attr("src", response.data[i].images.original_still.url);
+              horrorImage.attr("data-still", response.data[i].images.original_still.url);
+              horrorImage.attr("data-animate", response.data[i].images.original.url);
+              horrorImage.attr("data-state", "still");
+              horrorImage.attr("class", "gif");
+              horrorDiv.append(horrorImage);
+                */
               // Appending the paragraph and image tag to the animalDiv
               horrorDiv.append(p);
               horrorDiv.append(horrorImage);
   
               // Prependng the animalDiv to the HTML page in the "#gifs-appear-here" div
-              $("#horrors").prepend(horrorDiv);
+              $("#imgHere").prepend(horrorDiv);
             }
 
-             // This function handles events where one button is clicked
-      $("#add-horror").on("click", function(event) {
-        // Preventing the buttons default behavior when clicked (which is submitting a form)
-        event.preventDefault();
-        // This line grabs the input from the textbox
-        var horror = $("#horror-input").val().trim();
-
-        // Adding the movie from the textbox to our array
-        horrors.push(horror);
-
-        // Calling renderButtons which handles the processing of our movie array
-        renderButtons();
-
-      });
+     
 
           });
       });
-});
+               // This function handles events where one button is clicked
+               $("#add-horror").on("click", function displayInfo(event) {
+                // Preventing the buttons default behavior when clicked (which is submitting a form)
+                event.preventDefault();
+                // This line grabs the input from the textbox
+                var horror = $("#horror-input").val().trim();
+        
+                // Adding the movie from the textbox to our array
+                horrors.push(horror);
+        
+                // Calling renderButtons which handles the processing of our movie array
+                renderButtons();
+                return false;
+        
+              });
+                 /* function imageChangeState() {          
+
+        var state = $(this).attr("data-state");
+        var animateImage = $(this).attr("data-animate");
+        var stillImage = $(this).attr("data-still");
+
+        if(state == "still") {
+            $(this).attr("src", animateImage);
+            $(this).attr("data-state", "animate");
+        }
+
+        else if(state == "animate") {
+            $(this).attr("src", stillImage);
+            $(this).attr("data-state", "still");
+        }   
+    }*/
+              //$(document).on("click", "#horror-buttons", renderButtons);
+
+              // Calling the renderButtons function to display the intial buttons
+              //renderButtons();
