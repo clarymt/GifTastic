@@ -19,7 +19,7 @@ function renderButtons() {
     $("button").on("click", function displayInfo() {
         // Grabbing and storing the data-animal property value from the button
         var horrors = $(this).attr("data-horror");
-  
+        $('#imgHere').empty();
         // Constructing a queryURL using the animal name
         var queryURL = "https://api.giphy.com/v1/gifs/search?q=" +
           horrors + "&api_key=aNKEB7vfbBsZhY4hJXxNB21jU16vOjYk&limit=10";
@@ -79,6 +79,7 @@ function renderButtons() {
         
                 // Adding the movie from the textbox to our array
                 horrors.push(horror);
+                horror
         
                 // Calling renderButtons which handles the processing of our movie array
                 renderButtons();
